@@ -1,0 +1,115 @@
+@url_dev =  http://localhost:3056/v1/api 
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NDE0NTQ4NTQsImV4cCI6MTc0MTQ1NDk3NH0.uyVREK0OXEFkyH06PbusVO70YHvfGETwBoie5pHTMQ0
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3MzUxNDYzMTksImV4cCI6MTc2NjcwMzkxOX0.1mghvWqZkrL48vCa5V8KN_FiSkaznWcioH9N9O1E7dE
+@x_client_id = 67691ca460d3b7cf1c7e63f7 
+@x_api_key = 0a69b41da94e4a9f1178342e02be1ab3d160725869ca4980c0d0d3b3e7215ac96b399311cf4ef41a2bee25a8e980e03e429fa43c846f51535b3ea44df9281b4d
+
+### welcome page
+GET http://localhost:3056
+
+// -----------------ACCESS ROUTE-----------------------------------
+
+### signUp
+POST {{url_dev}}/shop/signUp
+Content-Type: application/json
+
+{
+    "name": "shop 1",
+    "email": "showOne@gmail.com",
+    "password" : "123456"
+}
+
+### logIn
+POST {{url_dev}}/shop/logIn
+Content-Type: application/json
+
+{
+    "email": "showOne@gmail.com",
+    "password" : "123456"
+}
+
+
+### handle refresh token (get new access token)
+POST {{url_dev}}/shop/handleRefreshToken
+Content-Type: application/json
+
+{
+    "refreshToken": "{{refresh_token}}"
+}
+
+// loging out needs authorization
+### logOut
+POST {{url_dev}}/shop/logOut
+Content-Type: application/json
+x-client-id: {{x_client_id}}
+authorization: {{access_token}} 
+
+
+
+### create api key
+POST {{url_dev}}/shop/createApiKey
+Content-Type: application/json
+x-client-id: {{x_client_id}}
+authorization: {{access_token}}
+
+
+
+### test api key functionality
+// check both access token and api key
+GET {{url_dev}}/apiKeyFuntionality
+Content-Type: application/json
+x-client-id: {{x_client_id}} 
+authorization: {{access_token}}
+x-api-key: {{x_api_key}}
+
+// -------------------------------PRODUCT ROUTE------------------------
+
+### create product
+POST {{url_dev}}/product/createProduct
+Content-Type: application/json
+x-client-id: {{x_client_id}} 
+authorization: {{access_token}}
+x-api-key: {{x_api_key}}
+
+{
+    "product_name" : "doat mang 3000",
+    "product_thumb" : "",
+    "product_description" : "duoc phat trien boi giao su Dat Van Tay",
+    "product_price" : "3000",
+    "product_type" : "Electronics",
+    // "product_shop" : "{{x_client_id}}", NOPE --> for security, look into "checkAccessToken" and Product controller, service
+    // ask ur self, what if the "hacker" send a "product_shop" that is not the {{x_client_id}} 
+    "product_attributes" : {
+        "manufacturer": "chau tinh tri",
+        "model": "er523f",
+        "color": "unknown"
+    },
+    "product_quantity" : "5000"
+}
+
+### create product
+POST {{url_dev}}/product/createProduct
+Content-Type: application/json
+x-client-id: {{x_client_id}} 
+authorization: {{access_token}}
+x-api-key: {{x_api_key}}
+
+{
+    "product_name" : "quan dui",
+    "product_thumb" : "",
+    "product_description" : "quan dui cua Dat Van Tay",
+    "product_price" : "3000",
+    "product_type" : "Clothing",
+    // "product_shop" : "{{x_client_id}}", NOPE --> for security, look into "checkAccessToken" and Product controller, service
+    "product_attributes" : {
+        "brand": "chau tinh tri",
+        "size": "L",
+        "material": "unknown"
+    },
+    "product_quantity" : "5000"
+}
+
+// -----------------------------------------------
+
+### non exist route
+GET http://localhost:3056/nonexist
