@@ -40,7 +40,7 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 4.5,
         min: [1, 'Rating must be above 1.0'],
-        max: [5, 'Rating must be above 5.0'],
+        max: [5, 'Rating must be below 5.0'],
         set: (val) => Math.round(val * 10) / 10
     },
     product_variations: { // a phone can have many colors, many storage size
@@ -50,14 +50,14 @@ const productSchema = new mongoose.Schema({
     isDraft: {
         type: Boolean,
         default: true, // whenever we create a product, it will always be a draft
-        index: true,    // we assign "index" for this field, because it'll be used the most
-        select: false // khong lay field nay ra khi "find" hoac "findOne"
+        index: true, // we assign "index" for this field, when using "find({ isDraft: true })" --> helps optimize searching time
+        select: false // khong lay field nay ra khi "find", "findOne"
     },
     isPublished: {
         type: Boolean,
         default: false, 
         index: true,
-        select: false // khong lay field nay ra
+        select: false // khong lay field nay ra khi "find", "find One"
     },
 
 }, {

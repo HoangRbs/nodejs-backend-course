@@ -72,11 +72,11 @@ const checkAccessToken = catchAsync(
             if(decodedUser.userId !== userId) throw new AuthFailureError('Invalid User id')
             
             req.keyStore = keyStore // the next middlewares can use this keyStore
-            // save current user's keyStore in "current" request obj
+            // save current user's keyStore in "current" req obj
             // means many requests have different "req objects"
 
             req.user = decodedUser // the next middlewares can use this decodedUser, 
-            // AND MUST USE this decoded User ID (look into product controller, service)
+            // AND MUST USE this decoded User ID for SECURITY purpose (look into product controller, service, postman folder)
     
             return next()
         

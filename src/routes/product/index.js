@@ -15,5 +15,10 @@ router.use(checkApiKeyPermission('0000'))
 
 router.post('/createProduct', catchAsync(productController.createProduct))
 
+router.get('/drafts/all', catchAsync(productController.getDraftsForShop))
+router.get('/published/all', catchAsync(productController.getPublishedForShop))
+
+router.put('/publish/:id', catchAsync(productController.publishProductByShop))
+router.put('/unPublish/:id', catchAsync(productController.unPublishProductByShop))
 
 module.exports = router
