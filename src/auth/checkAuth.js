@@ -12,15 +12,16 @@ const HEADER = {
 
 const checkApiKey = async (req, res, next) => {
     
-    const api_key = req.headers[HEADER.API_KEY]?.toString();
+    const api_key = req.headers[HEADER.API_KEY]?.toString()
+
     if (!api_key) {
-        next(new BadRequestError())
+        return next(new BadRequestError())
     }
 
     // check keyObj
     const keyObj = await ApiKeyService.findKey(api_key)
     if (!keyObj) {
-        next(new BadRequestError())
+        return next(new BadRequestError())
     }
 
     // pass data inside "req obj, so the next midware can use it (permission)
@@ -36,13 +37,13 @@ const checkApiKeyPermission = (permission) => {
         // because of not using "checkApiKey" middle ware
         // --> we create a constrain, to use this function, we must run "checkApiKey" first   
         if (!req.keyObj) {  
-            next(new BadRequestError())
+            return next(new BadRequestError())
         }
 
         const validPermission = req.keyObj.permissions.includes(permission)
 
         if (!validPermission) {
-            next(new BadRequestError())
+            return next(new BadRequestError())
         }
 
         return next()

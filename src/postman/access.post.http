@@ -1,5 +1,5 @@
 @url_dev =  http://localhost:3056/v1/api 
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NDU3ODg5NjMsImV4cCI6MTc0NTc4OTA4M30.USy7S5TtZOgkiFtCk-npEm3IJFGLK6BCbjbrVl_XIz0
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NDYyMTQ0NTcsImV4cCI6MTc0NjIxNDU3N30.owBY1Wsk-4uMNFj2ZriXtwWLt3nqfQ2qpNzU-_YO7Ik
 @refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3MzUxNDYzMTksImV4cCI6MTc2NjcwMzkxOX0.1mghvWqZkrL48vCa5V8KN_FiSkaznWcioH9N9O1E7dE
 @x_client_id = 67691ca460d3b7cf1c7e63f7 
 @x_api_key = 0a69b41da94e4a9f1178342e02be1ab3d160725869ca4980c0d0d3b3e7215ac96b399311cf4ef41a2bee25a8e980e03e429fa43c846f51535b3ea44df9281b4d
@@ -52,17 +52,22 @@ Content-Type: application/json
 x-client-id: {{x_client_id}}
 authorization: {{access_token}}
 
+// --------------------------------------------------------------------
 
 
 ### test api key functionality
-// check both access token and api key
+
 GET {{url_dev}}/apiKeyFuntionality
 Content-Type: application/json
 x-client-id: {{x_client_id}} 
-authorization: {{access_token}}
 x-api-key: {{x_api_key}}
 
 // -------------------------------PRODUCT ROUTE------------------------
+
+### test midware in access route
+GET {{url_dev}}/product/testmidware
+Content-Type: application/json
+
 
 ### create product
 POST {{url_dev}}/product/createProduct
