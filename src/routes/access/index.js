@@ -11,7 +11,7 @@ router.use(async(req, res, next) => {
     return next()
 
     // --> that's why we use "/shop" for the below "check access token" midware 
-    // so the other routes outside of this don't use the midware
+    // so the other routes outside of this don't use the "check access token" midware
 })
 
 // authentication

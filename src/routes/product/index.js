@@ -19,6 +19,10 @@ router.get('/testmidware', async (req, res, next) => {
 }) 
 // ------------------------------
 
+router.get('/search/:keySearch', catchAsync(productController.searchProducts))
+router.get('', catchAsync(productController.getAllProducts))
+router.get('/:product_id', catchAsync(productController.getProduct))
+
 // check api key
 router.use(checkApiKey)
 

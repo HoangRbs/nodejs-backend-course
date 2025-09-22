@@ -1,10 +1,11 @@
 const { electronicModel, clothingModel, productModel } = require('../models/product.model')
 const { BadRequestError } = require('../core_response/error.response')
 const { Types } = require('mongoose')
+const { getSelectData, noGetSelectData } = require('../utils')
 
 class ProductFactory {
 
-    static createProduct_dict = {} // key-function (create product function) dictionary
+    static createProduct_dict = {} // key-function dictionary (create product function)
 
     static registerFunc_Dictionary (type, createProductFunc) {
         ProductFactory.createProduct_dict[type] = createProductFunc
@@ -18,7 +19,7 @@ class ProductFactory {
 
         return await createProductFunc(payload)
 
-        // -- the old way
+        // -- the old way (Unmaintainable lol)
         // switch(type) {
         //     case 'Electronics': return await new Electronics(payload).createProduct()
         //     case 'Clothing' : return await new Clothing(payload).createProduct()
@@ -75,6 +76,45 @@ class ProductFactory {
     
         // this "modified count" returns 1 if the foundProduct is updated successfully 
         return modifiedCount;
+    }
+
+    static async searchProducts ({ keySearch }) {
+        // full text search
+        const results = await productModel.find(
+            {
+                isPublished: true, 
+                $text: { $search: keySearch } // full text search mode
+            }, 
+            { score: { $meta: "textScore" }} // use score mode
+        )
+        .sort({score: { $meta: "textScore" }}) // sort by score mode
+        .lean()
+
+        return results;
+    } 
+
+    // not really all products, maybe like first 50 products per page
+    static async getAllProducts ({limit = 50, sort = 'ctime', page = 1, filter = {isPublished: true}}) {
+
+        const select = getSelectData(['product_name', 'product_price', 'product_thumb', 'product_shop'])
+        const skip = (page - 1) * limit // if page = 2 then skip the first 50 ...
+        const sortBy = sort === 'ctime' ? {_id: -1} : {_id: 1}
+        
+        return await productModel.find(filter)
+            .sort(sortBy)
+            .skip(skip)
+            .limit(limit)
+            .select(select)
+            .lean();
+    }
+
+    // get product info
+    static async getProduct({product_id}) {
+        const select = noGetSelectData([ '__v' ]) // we don't want to get this field
+        return await productModel.findOne({ 
+            _id: product_id,
+            isPublished: true
+        }).select(select)
     }
 }
 

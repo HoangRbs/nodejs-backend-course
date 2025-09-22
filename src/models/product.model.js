@@ -65,6 +65,12 @@ const productSchema = new mongoose.Schema({
     collection: COLLECTION_NAME
 });
 
+// create (compound) index for full text search
+productSchema.index({
+    product_name: 'text',
+    product_description: 'text'
+})
+
 // document middleware: run before .save() and .create()
 productSchema.pre('save', function(next) {
     this.product_slug = slugify(this.product_name, { lower: true })

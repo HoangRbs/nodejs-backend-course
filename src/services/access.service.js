@@ -128,7 +128,7 @@ class AccessService {
         
         return {
             // shop: getInfoData({
-            //     fields: ['_id', 'name', 'email'], (lodash)
+            //     fields: ['_id', 'name', 'email'], (lodash -- later)
             //     object: foundShop
             // }),
             shop: {

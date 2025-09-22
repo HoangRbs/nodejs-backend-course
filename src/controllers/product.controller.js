@@ -68,6 +68,30 @@ class ProductController {
         )
     }
 
+    searchProducts = async (req, res, next) => {
+        new Ok(
+            res, 
+            "get list search success",
+            await ProductService.searchProducts(req.params)
+        )
+    }
+
+
+    getAllProducts = async (req, res, next) => {
+        new Ok(
+            res, 
+            "get list success",
+            await ProductService.getAllProducts(req.query)
+        )
+    }
+
+    getProduct = async (req, res, next) => {
+        new Ok(
+            res, 
+            "get product info success",
+            await ProductService.getProduct(req.params)
+        )
+    }
 }
 
 module.exports = new ProductController()
