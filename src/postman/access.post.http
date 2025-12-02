@@ -1,5 +1,5 @@
 @url_dev =  http://localhost:3056/v1/api 
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NTgzODAyMjMsImV4cCI6MTc1ODM4MDM0M30.dlFL6D-eGio7266mwXC5AsUESd5oWORKzmgEX5Hxzio
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NjQ2NzE1NjQsImV4cCI6MTc2NDY3MTY4NH0.vtzwurtCqb_8XNJHN6pcutqnCmD1AYgJyZ3EWc_7JAc
 @refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3MzUxNDYzMTksImV4cCI6MTc2NjcwMzkxOX0.1mghvWqZkrL48vCa5V8KN_FiSkaznWcioH9N9O1E7dE
 @x_client_id = 67691ca460d3b7cf1c7e63f7 
 @x_api_key = 0a69b41da94e4a9f1178342e02be1ab3d160725869ca4980c0d0d3b3e7215ac96b399311cf4ef41a2bee25a8e980e03e429fa43c846f51535b3ea44df9281b4d
@@ -100,18 +100,18 @@ authorization: {{access_token}}
 x-api-key: {{x_api_key}}
 
 {
-    "product_name" : "quan dui",
+    "product_name" : "quan dui 3",
     "product_thumb" : "",
     "product_description" : "quan dui cua Dat Van Tay",
-    "product_price" : "3000",
+    "product_price" : "6000",
     "product_type" : "Clothing",
     // "product_shop" : "{{x_client_id}}", NOPE --> for security, look into "checkAccessToken" and Product controller, service
     "product_attributes" : {
-        "brand": "chau tinh tri",
+        "brand": "hoa thi mau",
         "size": "L",
-        "material": "unknown"
+        "material": "spider web :))"
     },
-    "product_quantity" : "5000"
+    "product_quantity" : "6000"
 }
 
 
