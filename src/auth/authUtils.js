@@ -17,7 +17,7 @@ const createTokenPair = async(payload, accessTokenSecret, refreshTokenSecret) =>
 
 const createAccessToken = async(payload, accessTokenSecret) => {
     const accessToken = await signJwtAsync(payload, accessTokenSecret, {
-        expiresIn: '2m' // temporary, since I have to test many case
+        expiresIn: '10m' // temporary, since I have to test many case
     })
 
     return accessToken

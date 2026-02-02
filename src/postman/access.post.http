@@ -1,6 +1,6 @@
 @url_dev =  http://localhost:3056/v1/api 
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NjQ2NzE1NjQsImV4cCI6MTc2NDY3MTY4NH0.vtzwurtCqb_8XNJHN6pcutqnCmD1AYgJyZ3EWc_7JAc
-@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3MzUxNDYzMTksImV4cCI6MTc2NjcwMzkxOX0.1mghvWqZkrL48vCa5V8KN_FiSkaznWcioH9N9O1E7dE
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NjgxMjgyMjMsImV4cCI6MTc2ODEyODgyM30.Y-mMYLFA6ym8DxAXDAChDGVtU44g-n8qNNuuuRwqjS8
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NjgxMjgyMjMsImV4cCI6MTc5OTY4NTgyM30.dpVXLic1OJMmy0gExbhEPK3dZFYZQO8pUryzkNe_2SA
 @x_client_id = 67691ca460d3b7cf1c7e63f7 
 @x_api_key = 0a69b41da94e4a9f1178342e02be1ab3d160725869ca4980c0d0d3b3e7215ac96b399311cf4ef41a2bee25a8e980e03e429fa43c846f51535b3ea44df9281b4d
 
@@ -100,16 +100,16 @@ authorization: {{access_token}}
 x-api-key: {{x_api_key}}
 
 {
-    "product_name" : "quan dui 3",
+    "product_name" : "quan dui 4",
     "product_thumb" : "",
-    "product_description" : "quan dui cua Dat Van Tay",
+    "product_description" : "quan dui cua Dat Van Tay 4",
     "product_price" : "6000",
     "product_type" : "Clothing",
     // "product_shop" : "{{x_client_id}}", NOPE --> for security, look into "checkAccessToken" and Product controller, service
     "product_attributes" : {
         "brand": "hoa thi mau",
         "size": "L",
-        "material": "spider web :))"
+        "material": "hihihoho :))"
     },
     "product_quantity" : "6000"
 }
