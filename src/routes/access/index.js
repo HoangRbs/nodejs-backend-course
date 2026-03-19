@@ -7,11 +7,11 @@ const { checkAccessToken, checkApiKey, checkApiKeyPermission } = require('../../
 // access folder:
 // testing this midware from product folder 
 router.use(async(req, res, next) => {
-    console.log('went through this /v1/api midware in access folder')
+    console.log('went through this /v1/api midware in src/routes/access folder')
     return next()
 
     // --> that's why we use "/shop" for the below "check access token" midware 
-    // so the other routes outside of this don't use the "check access token" midware
+    // so the other routes outside of THIS FILE don't "check access token" FROM THIS FILE 
 })
 
 // authentication

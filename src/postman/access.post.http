@@ -1,8 +1,8 @@
 @url_dev =  http://localhost:3056/v1/api 
-@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NjgxMjgyMjMsImV4cCI6MTc2ODEyODgyM30.Y-mMYLFA6ym8DxAXDAChDGVtU44g-n8qNNuuuRwqjS8
-@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzY5MWNhNDYwZDNiN2NmMWM3ZTYzZjciLCJpYXQiOjE3NjgxMjgyMjMsImV4cCI6MTc5OTY4NTgyM30.dpVXLic1OJMmy0gExbhEPK3dZFYZQO8pUryzkNe_2SA
-@x_client_id = 67691ca460d3b7cf1c7e63f7 
-@x_api_key = 0a69b41da94e4a9f1178342e02be1ab3d160725869ca4980c0d0d3b3e7215ac96b399311cf4ef41a2bee25a8e980e03e429fa43c846f51535b3ea44df9281b4d
+@access_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWI2NWY2Zjk3ZjA1OGI0N2FkZmJhMmEiLCJpYXQiOjE3NzM5NTM0NzgsImV4cCI6MTc3Mzk1NDA3OH0.no8D5_N7YQsFjGGD1ymW-QxRkdtePqoT8aWO6_Ie3mU
+@refresh_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWI2NWY2Zjk3ZjA1OGI0N2FkZmJhMmEiLCJpYXQiOjE3NzM5NTE4MTMsImV4cCI6MTc3NDIxMTAxM30.ls4LxIFCswHsPUHVTtMXFNJ_i1QCv2y6C2QhRUaIU10
+@x_client_id = 69b65f6f97f058b47adfba2a
+@x_api_key = ca677a769131f882a6fb1c844e5eda682885e629446f38426a8c94d179972a70650d5b3c759fe7fd46d7883b46fa066aa6913f0d8bed5237695fdc9ab7830977
 
 ### welcome page
 GET http://localhost:3056
@@ -105,13 +105,55 @@ x-api-key: {{x_api_key}}
     "product_description" : "quan dui cua Dat Van Tay 4",
     "product_price" : "6000",
     "product_type" : "Clothing",
-    // "product_shop" : "{{x_client_id}}", NOPE --> for security, look into "checkAccessToken" and Product controller, service
+    // "product_shop" : "{{x_client_id}}", NOPE, NOT GETTING PRODUCT_SHOP(user) here !!!
+    // --> this is for SECURITY, look into "checkAccessToken" and Product controller, service
     "product_attributes" : {
         "brand": "hoa thi mau",
         "size": "L",
         "material": "hihihoho :))"
     },
     "product_quantity" : "6000"
+}
+
+### update product
+PATCH {{url_dev}}/product/updateProduct/69b674f8416bc71b019bb6c4
+Content-Type: application/json
+x-client-id: {{x_client_id}} 
+authorization: {{access_token}}
+x-api-key: {{x_api_key}}
+
+{
+    "product_name" : "doat mang 5005",
+    // "product_shop" : "{{x_client_id}}", NOPE, NOT GETTING PRODUCT_SHOP(user) here !!!
+    // --> this is for SECURITY, look into "checkAccessToken" and Product controller, service
+    
+    "product_attributes" : {
+        "manufacturer": "hoa thi mauuuuu 2",
+        "model": "K",
+        "color": ":))"
+    },
+    "product_quantity" : "6000"
+}
+
+
+### update product
+PATCH {{url_dev}}/product/updateProduct/69b674fb416bc71b019bb6c8
+Content-Type: application/json
+x-client-id: {{x_client_id}} 
+authorization: {{access_token}}
+x-api-key: {{x_api_key}}
+
+{
+    "product_name" : "quan dui 5555"
+    // "product_shop" : "{{x_client_id}}", NOPE, NOT GETTING PRODUCT_SHOP(user) here !!!
+    // --> this is for SECURITY, look into "checkAccessToken" and Product controller, service
+    
+    //"product_attributes" : {
+    //    "brand": "hoa thi mau",
+    //    "size": "L",
+    //    "material": "hihihoho :))"
+    //},
+    //"product_quantity" : "6000"
 }
 
 

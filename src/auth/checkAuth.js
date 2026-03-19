@@ -15,12 +15,14 @@ const checkApiKey = async (req, res, next) => {
     const api_key = req.headers[HEADER.API_KEY]?.toString()
 
     if (!api_key) {
+        console.log('no api key')
         return next(new BadRequestError())
     }
 
     // check keyObj
     const keyObj = await ApiKeyService.findKey(api_key)
     if (!keyObj) {
+        console.log('no keyObj found')
         return next(new BadRequestError())
     }
 
@@ -33,16 +35,18 @@ const checkApiKey = async (req, res, next) => {
 const checkApiKeyPermission = (permission) => {
     return (req, res, next) => {
 
-        // the keyObj might not be in the "req"
-        // because of not using "checkApiKey" middle ware
-        // --> we create a constrain, to use this function, we must run "checkApiKey" first   
+        // To use this function, we must have "checkApiKey" ran PREVIOUSLY fist
+        // So we check for the keyObj is in the "req" or not as a constraint
+        // because we might ACCIDENTLY didn't use "checkApiKey" middle ware PREVIOUSLY (for some reason)
         if (!req.keyObj) {  
+            console.log('no keyObj in req')
             return next(new BadRequestError())
         }
 
         const validPermission = req.keyObj.permissions.includes(permission)
 
         if (!validPermission) {
+            console.log('permission not valid') 
             return next(new BadRequestError())
         }
 
@@ -52,7 +56,7 @@ const checkApiKeyPermission = (permission) => {
 
 // Authorization
 const checkAccessToken = catchAsync(
-    async (req, res, next) => {
+    async (req, res, next) => {    
         // get userId 
         // although we could get userId right in the access token payload
         // but this add a tiny layer of security I guest
@@ -82,6 +86,8 @@ const checkAccessToken = catchAsync(
             return next()
         
         } catch (err) {
+            console.log(' \n ------error in check access token midware:------ \n\n', err, '\n')
+
             // jwt verify error
             if(!err.status)
                 throw new AuthFailureError('invalid access token')

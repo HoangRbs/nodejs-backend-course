@@ -7,8 +7,6 @@ const { checkAccessToken, checkApiKey, checkApiKeyPermission } = require('../../
 // testing -----------------------
 // product folder:
 // goal: test midware in access folder, it should not go through that midware
-// if yes :((( it also has go through the "check access token" 
-// and "check api key" inside "access" folder as well :(, not what we wanted.
 const { Ok } = require('../../core_response/success.response')
 router.get('/testmidware', async (req, res, next) => {
     new Ok(
@@ -33,6 +31,7 @@ router.use(checkApiKeyPermission('0000'))
 router.use(checkAccessToken)
 
 router.post('/createProduct', catchAsync(productController.createProduct))
+router.patch('/updateProduct/:id', catchAsync(productController.updateProduct))
 
 router.get('/drafts/all', catchAsync(productController.getDraftsForShop))
 router.get('/published/all', catchAsync(productController.getPublishedForShop))

@@ -19,7 +19,7 @@ const keyTokenSchema = new mongoose.Schema({
     },
     refreshToken: {
         type: String,
-        default: true
+        default: null
     },
 
     // for security: saves all the used token while user is logging in

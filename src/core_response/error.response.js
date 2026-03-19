@@ -33,7 +33,7 @@ class BadRequestError extends BaseError {
 }
 
 class NotFoundRequestError extends BaseError {
-    constructor(message = ReasonPhrases.NOTFOUND, status = StatusCodes.NOTFOUND) {
+    constructor(message = ReasonPhrases.NOTFOUND, status = StatusCodes.NOT_FOUND) {
         super(message, status);
     }
 }

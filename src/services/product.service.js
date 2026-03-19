@@ -1,14 +1,50 @@
 const { productModel } = require('../models/product.model')
 const { Types } = require('mongoose')
-const { getSelectData, noGetSelectData } = require('../utils')
+const { getSelectData, noGetSelectData, removeUndefinedObject, nestedObjectParser } = require('../utils')
 const { ProductFactory } = require('../factories/product')
 
 class ProductService {
 
-
-    // test this function tomorrow :3333
     static async createProduct(payload) {  // used in product controller
         return await ProductFactory.createProduct(payload)
+    }
+
+
+    // call it "updatePayload" instead of "payload" cuz it's NOT a FULL PRODUCT INFORMATION
+    // currently we make the update() function for all type of products (clothings, eletronics, ...)
+    // will make a seperate versions for each product type later. (should be a better way cuz have more constraints)
+    static async updateProduct(productId, updatePayload) {
+        console.log('\n ----- original updatePayload: -------- \n', updatePayload)
+
+        // 1. get rid of any "null" of "undefined" attribute before processing(dont trust front end) 
+        removeUndefinedObject(updatePayload)
+
+        console.log('\n ----- updatePayload after removeUndefinedObject: -------- \n', updatePayload)
+
+        // if it has product_atrributes { ... } means we updating NESTED DATA
+        if (updatePayload.product_attributes) {
+            // get rid of null value in the attributes
+            removeUndefinedObject(updatePayload.product_attributes)
+
+            // for updating nested data in mongoDB 
+            // without losing the other properties of product_attributes
+          
+            // (new)updatePayload = {
+            //      product_name: 'iphone 14 pro max edited',
+            //      .....
+            //     'product_attributes.manufacturer': 'chau tinh tri edited 2'
+            // }
+
+            updatePayload = nestedObjectParser(updatePayload)
+            console.log('\n ----- updatePayload after nestedObjectParser: -------- \n', updatePayload)
+        } 
+        
+        return await productModel.findByIdAndUpdate(productId, updatePayload, {
+            strict: false, // allow update with any fields through discriminator 
+            // even those not in the product schema
+            // we do this temprarily, will later make update for each product model type
+            new: true
+        }) 
     }
 
     static async getDraftsForShop ({ product_shop, limit = 50, skip = 0 }) {

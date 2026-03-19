@@ -9,8 +9,22 @@ class ProductController {
             'create new product success',
             await ProductService.createProduct({
                 ...req.body,
-                product_shop: req.user.userId // security purpose (authentication)
+                product_shop: req.user.userId // security purpose (got the req.user from the checkAccessToken midware, so we can get the userId and pass it to the service layer)
             })
+        )        
+    }
+
+    updateProduct = async(req, res, next) => {
+        new Ok(
+            res,
+            'update product success',
+            await ProductService.updateProduct(
+                req.params.id,
+                {
+                    ...req.body,
+                    product_shop: req.user.userId // security purpose (got the req.user from the checkAccessToken midware, so we can get the userId and pass it to the service layer)
+                }
+            )
         )        
     }
 

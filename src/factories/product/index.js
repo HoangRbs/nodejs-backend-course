@@ -5,7 +5,7 @@ const { Clothing } = require('./clothing')
 class ProductFactory {
 
     // REGISTRY PATTERN: replace switch(type)
-    // key-function dictionary (create new product obj according to key type)
+    // key-function dictionary (key - create new product obj FUNCTION)
     static createProductObj_dict = {} 
 
     static registerFunc_Dict (type, createProductObj_func) {
@@ -18,7 +18,7 @@ class ProductFactory {
         const createProductObj_func = ProductFactory.createProductObj_dict[type]
         if(!createProductObj_func) throw new BadRequestError(`invalid product type ${type}`)
 
-        const newProductObj = createProductObj_func(payload)
+        const newProductObj = createProductObj_func(payload)  // create new object through function
         return await newProductObj.create()
 
         // -- the old way (Unmaintainable lol)
@@ -28,6 +28,22 @@ class ProductFactory {
         //     default: throw new BadRequestError(`invalid product type ${type}`)
         // }
     }
+
+    // I think currently no need the update function for this Factory pattern,
+    // just do all the logic straight inside the product.service.js
+    // might later be benefitial if the update of "Clothing" or "Electronics" (different types)
+    // are different from each other (from different attributes)
+    /*
+    static async updateProduct(payload) {
+        const type = payload.product_type
+
+        const createProductObj_func = ProductFactory.createProductObj_dict[type]
+        if(!createProductObj_func) throw new BadRequestError(`invalid product type ${type}`)
+
+        const newProductObj = createProductObj_func(payload)
+        return await newProductObj.update()
+    }
+    */
 }
 
 // REGISTRY PATTERN: replace switch(type)

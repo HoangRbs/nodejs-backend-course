@@ -53,10 +53,9 @@ app.use((err, req, res, next) => {
     // 500: internal server error: 
     // such as program crash because of logic, synctax, ....
     // that is "thrown" by the program
-    // but in order for that kind of error to get into this error handler
-    // it has to be catched and next(err)
+    // another way to get into this handler is to use : next(err)
 
-    // check since our custom errors have status
+    // check since our CUSTOM errors have status
     if(err.status) {
         const statusCode = err.status
         return res.status(statusCode).json({
@@ -67,12 +66,12 @@ app.use((err, req, res, next) => {
     } 
     
     // internal server error should not be shown to user (hack)
-    console.log(err)
+    console.log('\n-------- code err thrown out catched !!!--------\n:', err)
 
     return res.status(500).json({
         state: 'error',
         code: 500,
-        message: 'Internal Server Error'
+        message: 'Internal Server Error (time to fix some bugs)'
     })
 })
 
